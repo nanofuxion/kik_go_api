@@ -1,0 +1,58 @@
+package main
+
+import (
+	// "bufio"
+	// "fmt"
+	// "os"
+
+	"regexp"
+	"strings"
+
+	"github.com/nanofuxion/kik-go-api/send"
+
+	"github.com/nanofuxion/kik-go-api/core"
+)
+
+//Kik ...
+var Kik = core.Client
+
+func main() {
+	r := make(chan string)
+	//sets login info and
+	Kik.Settings("random-username.", "pass123")
+	go Kik.Connect(r)
+
+	//keep kik.connect running indefinately
+	for msg := range r {
+		//uncomment floowing line and remove if statements when parser is implemented
+		// _ = msg
+		if strings.Contains(msg, "type=\"chat\"") && !strings.Contains(msg, "from=\"webpushbot_xyz@talk.kik.com\"") {
+
+			re := regexp.MustCompile(`(from="(.*?)@talk.kik.com)`)
+			match := re.FindAllString(msg, 1)
+			jid := strings.Replace(match[0], `from="`, "", 1)
+			// jid = strings.Replace(jid, `@talk.kik.com"`, `@talk.kik.com`, 1)
+
+			//build the stanza
+			mess, _ := send.Send("if you see this, Ask vilp to finish the parser for this bots API", "chat", jid)
+
+			//send the raw stanza could be stanza string instead the generated stanza
+			Kik.SendRaw(mess)
+
+		}
+		if strings.Contains(msg, "type=\"groupchat\"") && !strings.Contains(msg, "<is-typing") && !strings.Contains(msg, "<status") {
+
+			re := regexp.MustCompile(`(jid="(.*?)@groups.kik.com)`)
+			match := re.FindAllString(msg, 1)
+			jid := strings.Replace(match[0], `jid="`, "", 1)
+
+			mess := ("if you see this, Ask vilp to finish the parser for this bots API")
+
+			//send the string anf jid to build stanza and send to server
+			Kik.SendMsg(mess, jid)
+
+		}
+
+	}
+
+}
