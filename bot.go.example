@@ -8,9 +8,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/nanofuxion/kik-go-api/send"
+	"github.com/nanofuxion/kik_go_api/send"
 
-	"github.com/nanofuxion/kik-go-api/core"
+	core "github.com/nanofuxion/kik_go_api"
 )
 
 //Kik ...

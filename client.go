@@ -1,4 +1,4 @@
-package core
+package kik_go_api
 
 import (
 	"encoding/hex"
@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"strings"
 
-	"../send"
-	"../utils"
+	"github.com/nanofuxion/kik_go_api/send"
+	"github.com/nanofuxion/kik_go_api/utils"
 )
 
 type cl struct {
