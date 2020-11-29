@@ -3,7 +3,7 @@ package send
 import (
 	"strings"
 
-	"../utils"
+	"github.com/nanofuxion/kik_go_api/utils"
 )
 
 //Node ...

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"../utils"
+	"github.com/nanofuxion/kik_go_api/utils"
 )
 
 //Send ...
